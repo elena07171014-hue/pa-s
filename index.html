@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>環遊世界大冒險｜西班牙文國家單字</title>
+<style>
+:root{--ink:#24445a;--blue:#2e83a8;--sky:#dff3fb;--cream:#fffaf0;--green:#36a477;--pink:#f7d9d5;--line:#d9e3e8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:var(--ink);background:linear-gradient(135deg,#e6f6fb,#fff5e6);min-height:100vh}
+button,input{font:inherit}.shell{max-width:900px;margin:0 auto;padding:22px 16px 40px}
+.hero,.game,.result{background:rgba(255,255,255,.94);border:2px solid white;border-radius:25px;box-shadow:0 12px 35px #31556b18}
+.hero{text-align:center;padding:35px 20px;background:linear-gradient(135deg,#d9f1fb,#fff1d8)}
+.logo{font-size:62px}.hero h1{font-size:clamp(27px,5vw,42px);margin:8px 0;color:#234d68}.sub{font-size:18px;font-weight:800;color:#b16b43}.hero p{line-height:1.8}.primary{border:0;border-radius:15px;background:#247fa4;color:white;font-weight:800;padding:14px 24px;cursor:pointer;box-shadow:0 4px 0 #185c7a}.primary:hover{filter:brightness(1.06)}.primary:active{transform:translateY(2px);box-shadow:0 2px 0 #185c7a}
+.game{padding:18px;margin-top:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:800;flex-wrap:wrap}.progress{height:11px;background:#e8edf0;border-radius:20px;margin:12px 0 18px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#39b58a,#82c98e);transition:width .3s}
+.tag{display:inline-block;padding:6px 12px;background:#e5f4f6;color:#27637b;border-radius:30px;font-size:13px;font-weight:800}.question{font-size:clamp(19px,3vw,24px);font-weight:850;text-align:center;margin:16px 0}
+.picture{width:100%;aspect-ratio:16/9;max-height:440px;object-fit:contain;border-radius:18px;background:linear-gradient(135deg,#d7edf3,#f8e5c8);display:block}
+.picture-wrap{position:relative}.image-fallback{display:none;position:absolute;inset:0;border-radius:18px;background:linear-gradient(145deg,#dceff5,#fff0d9);align-items:center;justify-content:center;flex-direction:column;font-size:76px}
+.image-fallback small{font-size:14px;color:#476477;margin-top:12px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.answer{min-height:62px;border:2px solid #d8e4e9;border-radius:15px;background:white;color:#24445a;font-size:19px;font-weight:850;cursor:pointer;padding:12px}.answer:hover{border-color:#69a9bd;background:#f4fbfd}.answer:disabled{cursor:default}.answer.correct{border-color:#32a675;background:#e6f7ed;color:#176b49}.answer.wrong{border-color:#db746a;background:#fff0ed;color:#a13d36}
+.feedback{margin-top:14px;padding:13px 15px;border-radius:14px;text-align:center;line-height:1.65;font-weight:750}.feedback.good{background:#e6f7ed;color:#176b49}.feedback.bad{background:#fff0ed;color:#a13d36}
+.next{width:100%;margin-top:13px}.hidden{display:none!important}.flag{font-size:95px;text-align:center;padding:12px}.tiles{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:17px 0}.tile{padding:9px 12px;border-radius:10px;background:#f6e8ca;font-size:21px;font-weight:900;color:#644a24}.entry{width:100%;padding:13px;border:2px solid #d8e4e9;border-radius:12px;font-size:20px;text-align:center;color:var(--ink);background:white}.mapemoji{text-align:center;font-size:88px;padding:15px}.result{text-align:center;padding:32px 18px;margin-top:18px}.trophy{font-size:76px}.points{font-size:42px;font-weight:900;margin:12px}.small{font-size:13px;color:#647d8b}.hint{font-size:13px;color:#647d8b;text-align:center;margin-top:13px}
+@media(max-width:520px){.shell{padding:12px}.game{padding:13px}.answers{gap:8px}.answer{font-size:16px;padding:10px 5px}.picture{aspect-ratio:4/3}.top{font-size:13px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<section class="hero" id="home">
+ <div class="logo">🌎✈️🧳</div>
+ <h1>環遊世界大冒險！</h1>
+ <div class="sub">¡Una vuelta al mundo!</div>
+ <p>六個國家、四種挑戰、20 道任務。<br>準備好護照，出發探索世界吧！</p>
+ <div style="font-size:30px;margin:15px">🏯　🗼　🥐　🍣　🏮</div>
+ <button class="primary" id="start">🚀 開始冒險</button>
+ <p class="small">每題 10 分｜答對即時加分｜完成後查看成績</p>
+</section>
+<section class="game hidden" id="game">
+ <div class="top"><span id="stage">第一關｜圖片猜國家</span><span id="count">1 / 20</span><span>⭐ <b id="score">0</b> 分</span></div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+ <div class="tag" id="tag">圖片辨識</div>
+ <div class="question" id="question"></div>
+ <div id="visual"></div>
+ <div class="answers" id="answers"></div>
+ <div id="feedback"></div>
+ <button class="primary next hidden" id="next">下一題 →</button>
+ <div class="hint">🌍 ¡Buen viaje! 祝你旅途愉快！</div>
+</section>
+<section class="result hidden" id="result">
+ <div class="trophy" id="trophy">🏆</div><h2>冒險完成！¡Excelente!</h2>
+ <div class="points"><span id="finalscore">0</span><span style="font-size:18px"> / 200 分</span></div>
+ <div class="tag" id="rank">世界旅行達人</div>
+ <p id="message"></p><p id="correct"></p>
+ <button class="primary" id="again">再挑戰一次</button>
+</section>
+</main>
+<script>
+const data=[
+{type:'picture',img:'images/q01-paris.jpg',fallback:'🗼',q:'這張圖片最可能來自哪個國家？',a:'Francia',opts:['Francia','España'],tip:'巴黎著名的鐵塔與街景，是法國常見的文化地標。'},
+{type:'picture',img:'images/q02-sushi.jpg',fallback:'🍣',q:'這種料理最可能來自哪個國家？',a:'Japón',opts:['Japón','China'],tip:'壽司是日本具有代表性的料理。'},
+{type:'picture',img:'images/q03-kimchi.jpg',fallback:'🥬',q:'這種特色食物最可能來自哪個國家？',a:'Corea',opts:['Corea','Taiwán'],tip:'泡菜是韓國非常有代表性的食物。'},
+{type:'picture',img:'images/q04-greatwall.jpg',fallback:'🏯',q:'這個著名建築最可能來自哪個國家？',a:'China',opts:['China','Japón'],tip:'這是中國的萬里長城。'},
+{type:'picture',img:'images/q05-takoyaki.jpg',fallback:'🐙',q:'這種街頭美食最可能來自哪個國家？',a:'Japón',opts:['Japón','Corea'],tip:'章魚燒是日本大阪著名的特色小吃。'},
+{type:'picture',img:'images/q06-sagrada.jpg',fallback:'⛪',q:'這座特殊造型的教堂最可能來自哪個國家？',a:'España',opts:['España','Francia'],tip:'這是西班牙巴塞隆納的聖家堂。'},
+{type:'picture',img:'images/q07-bubbletea.jpg',fallback:'🧋',q:'這種珍珠飲品最可能來自哪個地方？',a:'Taiwán',opts:['Taiwán','China'],tip:'珍珠奶茶起源於台灣。'},
+{type:'picture',img:'images/q08-hanbok.jpg',fallback:'👘',q:'這種傳統服飾最可能來自哪個國家？',a:'Corea',opts:['Corea','Japón'],tip:'這是韓國傳統服飾韓服。'},
+{type:'picture',img:'images/q09-paella.jpg',fallback:'🥘',q:'這道海鮮米飯料理最可能來自哪個國家？',a:'España',opts:['España','Francia'],tip:'海鮮燉飯是著名的西班牙料理。'},
+{type:'picture',img:'images/q10-croissant.jpg',fallback:'🥐',q:'這種烘焙點心最可能來自哪個國家？',a:'Francia',opts:['Francia','Taiwán'],tip:'可頌是法國常見的代表性烘焙食品。'},
+{type:'flag',flag:'🇹🇼',q:'這是哪個國家的國旗？',a:'Taiwán',opts:['Taiwán','China','Japón','Corea']},
+{type:'flag',flag:'🇯🇵',q:'這是哪個國家的國旗？',a:'Japón',opts:['China','Japón','Francia','España']},
+{type:'flag',flag:'🇰🇷',q:'這是哪個國家的國旗？',a:'Corea',opts:['Corea','China','Taiwán','España']},
+{type:'flag',flag:'🇫🇷',q:'這是哪個國家的國旗？',a:'Francia',opts:['España','Francia','Japón','China']},
+{type:'spell',letters:['P','A','J','Ó','N'],q:'請將字母重新排列，組成正確的國家名稱。',a:'JAPÓN'},
+{type:'spell',letters:['Ñ','A','P','E','S','A'],q:'請將字母重新排列，組成正確的國家名稱。',a:'ESPAÑA'},
+{type:'spell',letters:['C','A','I','N','F','R','A'],q:'請將字母重新排列，組成正確的國家名稱。',a:'FRANCIA'},
+{type:'map',emoji:'🌏',q:'台灣位於哪一洲？',a:'Asia',opts:['Asia','Europa'],tip:'台灣位於亞洲。'},
+{type:'map',emoji:'🌍',q:'西班牙位於哪一洲？',a:'Europa',opts:['Europa','Asia'],tip:'西班牙位於歐洲。'},
+{type:'map',emoji:'🌍',q:'法國位於哪一洲？',a:'Europa',opts:['Asia','Europa'],tip:'法國位於歐洲。'}
+];
+const $=id=>document.getElementById(id);let questions=[],idx=0,score=0,correct=0,locked=false;
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function start(){questions=data.map(x=>({...x,opts:x.opts?shuffle(x.opts):null}));idx=0;score=0;correct=0;$('home').classList.add('hidden');$('result').classList.add('hidden');$('game').classList.remove('hidden');render()}
+function render(){
+ locked=false;let q=questions[idx];$('stage').textContent=idx<10?'第一關｜圖片猜國家':idx<14?'第二關｜國旗大挑戰':idx<17?'第三關｜單字解密':'第四關｜世界旅行家';
+ $('tag').textContent=idx<10?'圖片辨識':idx<14?'國旗配對':idx<17?'單字拼拼樂':'地理小挑戰';
+ $('count').textContent=(idx+1)+' / 20';$('score').textContent=score;$('bar').style.width=(idx/20*100)+'%';$('question').textContent=q.q;$('feedback').innerHTML='';$('feedback').className='';$('next').classList.add('hidden');$('answers').innerHTML='';
+ if(q.type==='picture'){
+  const wrap=document.createElement('div');wrap.className='picture-wrap';
+  const img=document.createElement('img');img.className='picture';img.alt='國家文化特色插畫';img.src=q.img;
+  const fallback=document.createElement('div');fallback.className='image-fallback';fallback.innerHTML='<span>'+q.fallback+'</span><small>請放入對應的無文字文化插畫</small>';
+  img.onerror=()=>{img.style.display='none';fallback.style.display='flex'};wrap.append(img,fallback);$('visual').replaceChildren(wrap);
+ }else if(q.type==='flag'){$('visual').innerHTML='<div class="flag">'+q.flag+'</div>'}
+ else if(q.type==='spell'){$('visual').innerHTML='<div class="tiles">'+shuffle(q.letters).map(x=>'<span class="tile">'+x+'</span>').join('')+'</div>';let input=document.createElement('input');input.className='entry';input.placeholder='輸入西班牙文國家名稱';input.setAttribute('aria-label','輸入答案');input.autocomplete='off';$('answers').append(input);let b=document.createElement('button');b.className='primary';b.style.gridColumn='1/-1';b.textContent='確認答案';b.onclick=()=>check(input.value.trim().normalize('NFC').toUpperCase());$('answers').append(b);input.addEventListener('keydown',e=>{if(e.key==='Enter')check(input.value.trim().normalize('NFC').toUpperCase())})}
+ else{$('visual').innerHTML='<div class="mapemoji">'+q.emoji+'</div><div class="small" style="text-align:center">世界地圖探索任務</div>'}
+ if(q.type!=='spell')q.opts.forEach(c=>{let b=document.createElement('button');b.className='answer';b.textContent=c;b.onclick=()=>check(c,b);$('answers').append(b)});
+}
+function check(value,chosen){
+ if(locked)return;locked=true;let q=questions[idx],ok=value.toUpperCase()===q.a.toUpperCase();if(ok){score+=10;correct++}$('score').textContent=score;
+ [...$('answers').querySelectorAll('.answer')].forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add('correct');else if(b===chosen)b.classList.add('wrong')});
+ $('feedback').className='feedback '+(ok?'good':'bad');$('feedback').innerHTML='<div>'+(ok?'🎉 ¡Muy bien! 答對了！':'💪 再接再厲！正確答案：'+q.a)+'</div><div style="font-size:13px;font-weight:500;margin-top:5px">'+(q.tip||'記住這個單字，下次會更熟悉！')+'</div>';
+ $('next').textContent=idx===19?'查看最後成績 🏆':'下一題 →';$('next').classList.remove('hidden');
+}
+function finish(){$('game').classList.add('hidden');$('result').classList.remove('hidden');$('bar').style.width='100%';$('finalscore').textContent=score;$('correct').textContent='答對 '+correct+' / 20 題';$('trophy').textContent=score>=180?'🏆':score>=130?'🥇':score>=80?'🥈':'🌟';$('rank').textContent=score>=180?'世界旅行達人':score>=130?'優秀小旅行家':score>=80?'旅行探險家':'世界新手旅人';$('message').textContent=score>=180?'太厲害了！你是世界旅行達人！':score>=130?'表現很棒！你認識了許多國家！':score>=80?'很不錯！再挑戰一次會更熟悉！':'冒險才剛開始，繼續加油！'}
+$('start').onclick=start;$('again').onclick=start;$('next').onclick=()=>{idx++;if(idx===20)finish();else render()};
+</script>
+</body>
+</html>
